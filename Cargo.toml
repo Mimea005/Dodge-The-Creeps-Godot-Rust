@@ -9,4 +9,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 gdnative = "~0.10.0"
-gdextras = {version = "~0.2.2", git = "https://github.com/Mimea005/gdextras.git"}
+gdextras = {version = "~0.2.4", git = "https://github.com/Mimea005/gdextras.git"}
+rand = "~0.8.5"
