@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://MainScene.gdns" type="Script" id=1]
+[ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Mob.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Hud.tscn" type="PackedScene" id=4]
+[ext_resource path="res://media/art/House In a Forest Loop.ogg" type="AudioStream" id=5]
+
+[node name="MainScene" type="Node"]
+script = ExtResource( 1 )
+"Hud Resource" = ExtResource( 4 )
+"Background Music" = ExtResource( 5 )
+"Start Delay" = 2.0
+"Score Increase Interval" = 1.0
+Player/Resource = ExtResource( 2 )
+Player/Speed = 0.4
+"Player/Start Position" = Vector2( 240, 450 )
+Mob/Resource = ExtResource( 3 )
+"Mob/Mob Spawn Interval" = 0.5
+"Mob/Mob speed min" = 100.0
+"Mob/Mob speed max" = 250.0
