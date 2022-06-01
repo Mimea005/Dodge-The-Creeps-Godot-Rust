@@ -65,7 +65,7 @@ impl Player {
             direction += Vector2::LEFT;
         }
 
-        let animated_sprite: TRef<AnimatedSprite> = match get_node(owner.as_ref(), "AnimatedSprite") {
+        let animated_sprite: TRef<AnimatedSprite> = match get_node(owner.clone(), "AnimatedSprite") {
             Ok(sprite) => sprite,
             Err(_) => {
                 unsafe {AnimatedSprite::new().into_shared().assume_safe()}
@@ -145,19 +145,19 @@ impl Player {
         match self.death_sound {
             None => {},
             Some(_) => {
-                get_node::<Base, AudioStreamPlayer>(owner.as_ref(), "DeathSound").unwrap().play(0.0);
+                get_node::<Base, AudioStreamPlayer>(owner.clone(), "DeathSound").unwrap().play(0.0);
             }
         }
 
 
         owner.emit_signal("hit", &[]);
-        get_node::<Base, CollisionShape2D>(owner.as_ref(), "CollisionShape2D").unwrap().set_deferred("disabled", true);
+        get_node::<Base, CollisionShape2D>(owner.clone(), "CollisionShape2D").unwrap().set_deferred("disabled", true);
     }
 
     #[export]
-    pub fn start(&self, owner: &Base, pos: Vector2) {
+    pub fn start(&self, owner: TRef<Base>, pos: Vector2) {
         owner.set_position(pos);
         owner.show();
-        get_node::<Base, CollisionShape2D>(owner, "CollisionShape2D").unwrap().set_disabled(false);
+        get_node::<Base, CollisionShape2D>(owner.clone(), "CollisionShape2D").unwrap().set_disabled(false);
     }
 }

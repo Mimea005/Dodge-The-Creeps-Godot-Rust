@@ -28,7 +28,7 @@ impl Mob {
 
     #[export]
     fn _ready(&self, owner: TRef<Base>) {
-        let sprite: TRef<AnimatedSprite> = get_node(owner.as_ref(), "AnimatedSprite").unwrap();
+        let sprite: TRef<AnimatedSprite> = get_node(owner.clone(), "AnimatedSprite").unwrap();
 
         sprite.set("Playing", true);
 

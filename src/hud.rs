@@ -24,39 +24,39 @@ impl Hud {
 
     #[export]
     fn _on_get_ready_timeout(&self, owner: TRef<Base>) {
-        let message: TRef<Label> = get_node(owner.as_ref(), "Message").unwrap();
+        let message: TRef<Label> = get_node(owner.clone(), "Message").unwrap();
         message.hide();
     }
 
     #[export]
     fn _on_game_over_timeout(&self, owner: TRef<Base>) {
-        let message: TRef<Label> = get_node(owner.as_ref(), "Message").unwrap();
+        let message: TRef<Label> = get_node(owner.clone(), "Message").unwrap();
         message.set_text("Dodge the Creeps!");
         message.show();
-        get_node::<Base, Button>(owner.as_ref(), "StartButton").unwrap().show();
+        get_node::<Base, Button>(owner.clone(), "StartButton").unwrap().show();
     }
 
     #[export]
     fn _on_start_button_pressed(&self, owner: TRef<Base>) {
-        get_node::<Base, Label>(owner.as_ref(), "Message").unwrap().set_text("Get Ready");
-        get_node::<Base, Timer>(owner.as_ref(), "GetReadyTimer").unwrap().start(-1.);
-        get_node::<Base, Button>(owner.as_ref(), "StartButton").unwrap()
+        get_node::<Base, Label>(owner.clone(), "Message").unwrap().set_text("Get Ready");
+        get_node::<Base, Timer>(owner.clone(), "GetReadyTimer").unwrap().start(-1.);
+        get_node::<Base, Button>(owner.clone(), "StartButton").unwrap()
             .hide();
         owner.emit_signal("start_game", &[]);
     }
 
     #[export]
     fn show_game_over(&self, owner: TRef<Base>) {
-        let message: TRef<Label> = get_node(owner.as_ref(), "Message").unwrap();
+        let message: TRef<Label> = get_node(owner.clone(), "Message").unwrap();
         message.set_text("Game Over");
         message.show();
 
-        get_node::<Base, Timer>(owner.as_ref(), "GameOverTimer").unwrap()
+        get_node::<Base, Timer>(owner.clone(), "GameOverTimer").unwrap()
             .start(-1.);
     }
 
     #[export]
     fn score_update(&self, owner: TRef<Base>, score: i32) {
-        get_node::<Base, Label>(owner.as_ref(), "ScoreLabel").unwrap().set_text(score.to_string());
+        get_node::<Base, Label>(owner.clone(), "ScoreLabel").unwrap().set_text(score.to_string());
     }
 }

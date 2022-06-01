@@ -15,7 +15,6 @@ run/main_scene="res://MainScene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Dodge The Creeps"
 config/icon="res://media/art/playerGrey_walk1.png"
-config/windows_native_icon="res://media/art/playerGrey_walk1.png"
 
 [display]
 

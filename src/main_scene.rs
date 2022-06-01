@@ -364,7 +364,7 @@ impl MainScene {
 
         self.setup_fields(owner.clone());
 
-        let background: TRef<ColorRect> = get_node(owner.as_ref(), "Background").unwrap();
+        let background: TRef<ColorRect> = get_node(owner.clone(), "Background").unwrap();
         background.set_frame_color(Color::from_hsv(
             240. / 360.,
             0.7,
@@ -373,7 +373,7 @@ impl MainScene {
         background.set_margins_preset(15, 0, 0);
         background.show();
 
-        let player = get_instance::<Node, Area2D, Player>(owner.as_ref(), "Player").unwrap();
+        let player = get_instance::<Node, Area2D, Player>(owner.clone(), "Player").unwrap();
         player.map_mut(|s,_|s.speed = self.player_speed).unwrap();
 
         // Signal connections
@@ -386,7 +386,7 @@ impl MainScene {
                 0)
                 .unwrap();
 
-            get_node::<Base, Timer>(owner.as_ref(), "StartDelay").unwrap()
+            get_node::<Base, Timer>(owner.clone(), "StartDelay").unwrap()
                 .connect(
                     "timeout",
                     owner.clone(),
@@ -395,7 +395,7 @@ impl MainScene {
                     0
                 ).unwrap();
 
-            get_node::<Base, Timer>(owner.as_ref(), "ScoreTimer").unwrap()
+            get_node::<Base, Timer>(owner.clone(), "ScoreTimer").unwrap()
                 .connect(
                     "timeout",
                     owner.clone(),
@@ -404,7 +404,7 @@ impl MainScene {
                     0
                 ).unwrap();
 
-            get_node::<Base, Timer>(owner.as_ref(), "SpawnTimer").unwrap()
+            get_node::<Base, Timer>(owner.clone(), "SpawnTimer").unwrap()
                 .connect(
                     "timeout",
                     owner.clone(),
@@ -413,7 +413,7 @@ impl MainScene {
                     0
                 ).unwrap();
 
-            let hud = get_node::<Base, CanvasLayer>(owner.as_ref(), "Hud").unwrap();
+            let hud = get_node::<Base, CanvasLayer>(owner.clone(), "Hud").unwrap();
 
             hud.connect(
                 "start_game",
@@ -445,8 +445,8 @@ impl MainScene {
 
     #[export]
     fn game_over(&self, owner: TRef<Base>) {
-        get_node::<Base, Timer>(owner.as_ref(), "SpawnTimer").unwrap().stop();
-        get_node::<Base, Timer>(owner.as_ref(), "ScoreTimer").unwrap().stop();
+        get_node::<Base, Timer>(owner.clone(), "SpawnTimer").unwrap().stop();
+        get_node::<Base, Timer>(owner.clone(), "ScoreTimer").unwrap().stop();
         owner.emit_signal("show_game_over", &[]);
 
         //Stop music if it exist
@@ -468,10 +468,10 @@ impl MainScene {
 
         self.score = 0;
 
-        let hud_score: TRef<Label> = get_node(owner.as_ref(), "Hud/ScoreLabel").unwrap();
+        let hud_score: TRef<Label> = get_node(owner.clone(), "Hud/ScoreLabel").unwrap();
         hud_score.set_text(self.score.to_string());
 
-        let background: TRef<ColorRect> = get_node(owner.as_ref(), "Background").unwrap();
+        let background: TRef<ColorRect> = get_node(owner.clone(), "Background").unwrap();
         background.set_frame_color(Color::from_hsv(
             self.rng.gen_range(0_f32..1_f32),
             0.75,
@@ -486,14 +486,14 @@ impl MainScene {
                 }
             }
 
-        let player = get_instance::<Base, player::Base, Player>(owner.as_ref(), "Player").unwrap();
+        let player = get_instance::<Base, player::Base, Player>(owner.clone(), "Player").unwrap();
 
         player.map(
             |slf, own|
-                slf.start(own.as_ref(), self.start_position)
+                slf.start(own.clone(), self.start_position)
         ).unwrap();
 
-        get_node::<Base, Timer>(owner.as_ref(), "StartDelay").unwrap().start(-1.);
+        get_node::<Base, Timer>(owner.clone(), "StartDelay").unwrap().start(-1.);
 
     }
 
@@ -503,7 +503,7 @@ impl MainScene {
         owner.emit_signal("score_update", &[Variant::new(self.score)]);
 
         if self.score%10 == 0 {
-            get_node::<Base, ColorRect>(owner.as_ref(), "Background").unwrap()
+            get_node::<Base, ColorRect>(owner.clone(), "Background").unwrap()
                 .set_frame_color(Color::from_hsv(
                     self.rng.gen_range(0_f32..1_f32),
                     0.75,
@@ -516,7 +516,7 @@ impl MainScene {
     fn _on_spawn_timer_timeout(&mut self, owner: TRef<Base>) {
         let mob = self.instantiate_mob(owner.clone()).unwrap();
 
-        let spawn_pos = get_node::<Base, PathFollow2D>(owner.as_ref(), "MobPath/MobSpawnLocation").unwrap();
+        let spawn_pos = get_node::<Base, PathFollow2D>(owner.clone(), "MobPath/MobSpawnLocation").unwrap();
         spawn_pos.set_unit_offset(self.rng.gen_range(0_f64..1.));
 
         let mut direction = -spawn_pos.rotation() + PI / 2.;
@@ -546,8 +546,8 @@ impl MainScene {
 
     #[export]
     fn _on_start_delay_timeout(&self, owner: TRef<Base>) {
-        get_node::<Base, Timer>(owner.as_ref(), "SpawnTimer").unwrap().start(-1.);
-        get_node::<Base, Timer>(owner.as_ref(), "ScoreTimer").unwrap().start(-1.);
+        get_node::<Base, Timer>(owner.clone(), "SpawnTimer").unwrap().start(-1.);
+        get_node::<Base, Timer>(owner.clone(), "ScoreTimer").unwrap().start(-1.);
     }
 
     #[export]

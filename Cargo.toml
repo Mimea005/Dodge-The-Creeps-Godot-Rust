@@ -1,6 +1,6 @@
 [package]
 name = "rustlib"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -9,5 +9,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 gdnative = "~0.10.0"
-gdextras = {version = "~0.2.4", git = "https://github.com/Mimea005/gdextras.git"}
+gdextras = {version = "~0.2.6", git = "https://github.com/Mimea005/gdextras.git"}
 rand = "~0.8.5"
